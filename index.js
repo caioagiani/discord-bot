@@ -1,5 +1,6 @@
 const discord = require('discord.js');
 const express = require('express');
+const request = require('request');
 
 if (process.env.node_env !== 'production') {
   require('dotenv').config();
@@ -44,3 +45,11 @@ server.listen(process.env.PORT || 3333, () => {
     version: '1.0',
   });
 });
+
+const ping = () => request('https://datacorp-bot.herokuapp.com/', (error, response, body) => {
+    console.log('error:', error);
+    console.log('statusCode:', response && response.statusCode);
+    console.log('body:', body);
+});
+
+setInterval(ping, 20 * 60 * 1000);
