@@ -4,7 +4,7 @@ if (process.env.node_env !== 'production') {
   require('dotenv').config();
 }
 
-const bot = new discord.Client({ autoReconnect: true });
+const bot = new discord.Client();
 
 bot.login(process.env.TOKEN_DISCORD);
 
