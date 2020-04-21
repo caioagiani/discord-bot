@@ -10,6 +10,7 @@
   "dependencies": {
     "discord.js": "^12.1.1",
     "dotenv": "^8.2.0",
+    "express": "^4.17.1",
     "request": "^2.88.2"
   },
   "devDependencies": {

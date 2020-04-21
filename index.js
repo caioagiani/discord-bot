@@ -1,12 +1,24 @@
 const discord = require('discord.js');
+const express = require('express');
 
 if (process.env.node_env !== 'production') {
   require('dotenv').config();
 }
 
+const server = express();
 const bot = new discord.Client();
 
+server.use(express.json());
+server.use(express.urlencoded({ extended: true }));
+
 bot.login(process.env.TOKEN_DISCORD);
+
+server.get('/', (_req, res) => {
+    res.json({
+      status: 'on',
+      version: '1.0',
+    });
+});
 
 bot.once('ready', async () => {
   console.log('Bot ON!');
@@ -24,4 +36,11 @@ bot.on('message', (msg) => {
     msg.channel.send(pingEmbed);
     console.log(' [+] ping (' + bot.ws.ping + 'ms)');
   }
+});
+
+server.listen(process.env.PORT || 3333, () => {
+  console.log({
+    status: 'on',
+    version: '1.0',
+  });
 });
