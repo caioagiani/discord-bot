@@ -1,5 +1,8 @@
 const discord = require('discord.js');
-require('dotenv').config();
+
+if (process.env.node_env !== 'production') {
+  require('dotenv').config();
+}
 
 const bot = new discord.Client({ autoReconnect: true });
 
