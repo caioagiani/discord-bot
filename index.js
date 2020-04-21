@@ -12,7 +12,7 @@ const bot = new discord.Client();
 bot.login(process.env.TOKEN_DISCORD);
 
 server.get('/', (_req, res) => {
-  res.json({ status: 'on', version: '1.0', company: process.env.APPLICATION });
+  res.json({ status: 'on', version: '1.0', compnay: process.env.APPLICATION });
 });
 
 bot.once('ready', async () => {
@@ -37,7 +37,7 @@ server.listen(process.env.PORT || 3333, () => {
   console.log({
     status: 'on',
     version: '1.0',
-    company: process.env.APPLICATION,
+    compnay: process.env.APPLICATION,
   });
 });
 
