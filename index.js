@@ -8,6 +8,7 @@ if (process.env.node_env !== 'production') {
 
 const server = express();
 const bot = new discord.Client();
+let date = new Date();
 
 bot.login(process.env.TOKEN_DISCORD);
 
@@ -16,20 +17,34 @@ server.get('/', (_req, res) => {
 });
 
 bot.once('ready', async () => {
-  bot.user.setActivity('Coding');
+  bot.user.setActivity('Visual Studio Code', { type: 'PLAYING' });
   bot.user.setStatus('online');
 });
 
-bot.on('message', (msg) => {
+bot.on('message', async (msg) => {
   if (msg.content === '!ping') {
     const pingEmbed = new discord.MessageEmbed()
       .setColor('#1a65aa')
       .setTitle(
         'Pong!  :smile:  |  ' + bot.ws.ping + 'ms :hourglass_flowing_sand:'
-      );
+      )
+      .setTimestamp(date)
+      .setFooter(msg.author.username);
 
-    msg.channel.send(pingEmbed);
-    console.log('[+] ping (' + bot.ws.ping + 'ms)');
+    await msg.channel.send(pingEmbed);
+  }
+
+  if (msg.content === '!avatar') {
+    let user = msg.mentions.users.first() || msg.author;
+    let avatarURL = user.displayAvatarURL();
+
+    const avatar = new discord.MessageEmbed()
+      .setColor('#1a65aa')
+      .setTimestamp(date)
+      .setFooter(msg.author.username)
+      .setImage(avatarURL);
+
+    await msg.channel.send(avatar);
   }
 });
 
@@ -45,9 +60,7 @@ setInterval((ping) => {
   request(
     `https://${process.env.APPLICATION}.herokuapp.com/`,
     (error, response, body) => {
-      console.log('error:', error);
-      console.log('statusCode:', response && response.statusCode);
-      console.log('body:', body);
+      console.log('body:', response.statusCode);
     }
   );
 }, 20 * 60 * 1000);
