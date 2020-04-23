@@ -1,13 +1,20 @@
 const { bot } = require('./server');
 const PingController = require('./App/Controllers/PingController');
 const AvatarController = require('./App/Controllers/AvatarController');
+const PassagemController = require('./App/Controllers/PassagemController');
 
 bot.on('message', async (msg) => {
-  if (msg.content === '!ping') {
-    await PingController(msg);
-  }
+  switch (msg.content) {
+    case '!ping':
+      await PingController(msg);
+      break;
 
-  if (msg.content === '!avatar') {
-    await AvatarController(msg);
+    case '!avatar':
+      await AvatarController(msg);
+      break;
+
+    case '!turno':
+      await PassagemController(msg);
+      break;
   }
 });
