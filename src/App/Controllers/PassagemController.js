@@ -14,7 +14,7 @@ module.exports = async (msg) => {
     url: process.env.TURNO_API,
   };
 
-  await request(options, async (error, response, body) => {
+  request(options, async (error, response, body) => {
     const browser = await puppeteer.launch({
       headless: true,
       args: [
@@ -27,6 +27,7 @@ module.exports = async (msg) => {
         '--window-size=1920x1080',
       ],
     });
+
     const page = await browser.newPage();
     const path = dir.resolve('public', 'images', 'turno.png');
 

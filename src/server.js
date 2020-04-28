@@ -18,7 +18,7 @@ server.get('/', (_req, res) => {
   res.json({ status: 'on', version: '1.0', company: process.env.APPLICATION });
 });
 
-server.listen(process.env.PORT || 3333, () => {
+server.listen(process.env.PORT || 4444, () => {
   console.log({ status: 'bot on' });
 });
 
